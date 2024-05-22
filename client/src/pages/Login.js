@@ -18,7 +18,7 @@ const Login = () => {
             toast.success("Login SuccessFully")
         }
     }
-    console.log(email);
+    // console.log(email);
     return (
         <section>
             <div className='form_data'>

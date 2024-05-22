@@ -1,10 +1,15 @@
 import React, { useState } from 'react'
 import '../styles/mix.css'
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
+
+import { registerFuntion } from '../services/Apis';
+import axios from 'axios';
 
 
 const Register = () => {
+    const navigate = useNavigate();
+
     const [passshow, setPassshow] = useState(false);
     const [inputData, setInputData] = useState({
         fname: "",
@@ -19,7 +24,7 @@ const Register = () => {
     // console.log(inputData)
 
     // register data
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         const { fname, email, password } = inputData;
 
@@ -34,7 +39,15 @@ const Register = () => {
         } else if (password.trim().length < 6) {
             toast.error("password Length Minimum  6 character");
         } else {
-            toast.success("user Register sucessfully")
+            const response = await registerFuntion(inputData);
+            // const response = await axios.post("http://localhost:8000/user/register", inputData)
+            // console.log(response);
+            if (response.status === 200) {
+                setInputData({ ...inputData, fname: "", email: "", password: "" });
+                navigate('/')
+            } else {
+                toast.error(response.data.error);
+            }
         }
     }
 
