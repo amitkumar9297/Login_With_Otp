@@ -1,7 +1,11 @@
+require("colors")
 require("dotenv").config()
 const cors = require("cors");
 const express = require("express");
+const connectDB = require("./db/conn");
 
+
+connectDB();
 // create a app
 const app = express();
 // Assign Port no
@@ -17,5 +21,5 @@ app.get('/', (req, res) => {
 });
 
 app.listen(PORT, () => {
-    console.log(`server runnning at port ${PORT}`)
+    console.log(`server runnning at port ${PORT}`.bgGreen)
 })
