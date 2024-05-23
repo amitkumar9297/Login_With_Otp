@@ -99,5 +99,23 @@ exports.userOtpSend = async (req, res) => {
 }
 
 exports.userLogin = async (req, res) => {
+    const { email, otp } = req.body;
+    if (!otp || !email) {
+        res.status(400).json({ error: "Please Enter Your OTP" });
+    }
+    try {
+        const otpverification = await userotp.findOne({ email: email });
+        if (otpverification.otp === otp) {
+            const existingUser = await users.findOne({ email: email });
 
+            // generate token
+            const token = await existingUser.generateAuthtoken();
+            // console.log(token);
+            res.status(200).json({ message: "User Login SuccessFully Done", userToken: token });
+        } else {
+            res.status(400).json({ error: "Invalid OTP" });
+        }
+    } catch (err) {
+        res.status(400).json({ error: "Invalid Details", err });
+    }
 }
