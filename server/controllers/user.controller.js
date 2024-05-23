@@ -97,3 +97,7 @@ exports.userOtpSend = async (req, res) => {
 
     }
 }
+
+exports.userLogin = async (req, res) => {
+
+}
