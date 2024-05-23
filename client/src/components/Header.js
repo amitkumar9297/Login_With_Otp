@@ -10,7 +10,8 @@ const Header = () => {
                 <Container>
                     <Navbar.Brand href="#home">OTP VERIFICATION</Navbar.Brand>
                     <Nav >
-                        <Nav.Link href="#home">Register</Nav.Link>
+                        <Nav.Link href="/register">Register</Nav.Link>
+                        <img src="/logo192.png" style={{ width: 50 }} alt="" />
                     </Nav>
                 </Container>
             </Navbar>

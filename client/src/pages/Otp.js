@@ -26,6 +26,16 @@ const Otp = () => {
             }
             const response = await userVerify(data);
             console.log(response);
+
+            if (response.status === 200) {
+                localStorage.setItem("userdbtoken", response.data.userToken);
+                toast.success(response.data.message);
+                setTimeout(() => {
+                    navigate("/dashboard")
+                }, 5000)
+            } else {
+                toast.error(response.response.data.error)
+            }
         }
     }
 
